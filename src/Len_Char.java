@@ -3,7 +3,7 @@ public class Len_Char extends Character_Template {
 	
 	public Len_Char() {
 		this.health = 400;
-		this.attack = 80;
+		this.attack = 90;
 		this.special = 120;
 		this.name = "Len";
 		
