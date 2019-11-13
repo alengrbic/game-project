@@ -4,7 +4,7 @@ public class Len_Char extends Character_Template {
 	public Len_Char() {
 		this.health = 400;
 		this.attack = 90;
-		this.special = 120;
+		this.special = 130;
 		this.name = "Len";
 		
 		this.physicalAtk = this.name + " slashes the target with the sword for " + getAttack() + " damage!";
