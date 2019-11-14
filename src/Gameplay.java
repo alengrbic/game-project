@@ -13,7 +13,7 @@ import javax.swing.border.Border;
 
 
 public class Gameplay implements ActionListener{
-	
+	//set for testing output text file
 	static int count;
 	
 	//Chars
@@ -341,8 +341,7 @@ public class Gameplay implements ActionListener{
 			if(player.name.equals("Jarya")) {
 				player.special = player.bulletRain();
 				player.setSP();
-				System.out.println(player.special);
-				System.out.println(player.getSpecial());
+
 			}
 			else if(player.name.equals("Ditsu")) {
 				player.restore();	

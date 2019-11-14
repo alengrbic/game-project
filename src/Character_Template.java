@@ -8,6 +8,7 @@ public abstract class Character_Template{
 	int health;
 	int attack;
 	int special;
+	String description;
 	
 	//attacks & ablities desription
 	
@@ -39,6 +40,10 @@ public abstract class Character_Template{
 	public String getSpecialAtk() {
 		// TODO Auto-generated method stub
 		return this.specialAtk;
+	}
+	
+	public String getDescription() {
+		return this.description;
 	}
 	
 	

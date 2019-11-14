@@ -13,6 +13,7 @@ public class Playable_Char extends Character_Template  {
 			this.health = len.getHealth();
 			this.physicalAtk = len.getAttackDesc();
 			this.special = len.getSpecial();
+			this.description = "A warrior from far away land, utilizing his exceptional speed to fight foes.";
 			Gameplay.count += 1;
 	}
 	
@@ -24,6 +25,7 @@ public class Playable_Char extends Character_Template  {
 			this.name = jarya.getName();
 			this.health = jarya.getHealth();
 			this.physicalAtk = jarya.getAttackDesc();
+			this.description = "A fearless gunslinger, specializing in handguns and revolvers.";
 			Gameplay.count += 1;
 
 	}
@@ -36,6 +38,7 @@ public class Playable_Char extends Character_Template  {
 			this.name = ditsu.getName();
 			this.health = ditsu.getHealth();
 			this.physicalAtk = ditsu.getAttackDesc();
+			this.description = "A shaman who learned to control elements, looking for revenge against those who wronged him.";
 			Gameplay.count += 1;
 
 	}
