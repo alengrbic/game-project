@@ -12,8 +12,9 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 
-public class Gameplay implements ActionListener{
+public class Gameplay {
 	//set for testing output text file
+	
 	static int count;
 	
 	//Chars
@@ -72,7 +73,12 @@ public class Gameplay implements ActionListener{
 	ActionListener specialAttack = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {	
-			specialAttack();	
+			try {
+				specialAttack();
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}	
 		}
 	};
 	
@@ -250,18 +256,13 @@ public class Gameplay implements ActionListener{
 		
 	}
 	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		player.attack = player.getAttack() - boss.attack;
-		frame.repaint();
-		frame.revalidate();
-	}
+
 	
 
 	
 	public void bossAttack() {
 		int damage = boss.chosenAttack();
-		if(damage == 60) {
+		if(damage == 40 || damage == 50) {
 			bossAtkDescription.setText(boss.attackDescription);
 			bossAtkDescription.setFont(atkDescription.getFont().deriveFont(20.0f));
 			bossAtkDescription.setHorizontalAlignment((int) (Component.CENTER_ALIGNMENT));
@@ -274,12 +275,7 @@ public class Gameplay implements ActionListener{
 		player.health = player.getHealth() - damage;
 		characterHealth.setText("Health: " + player.health);
 	}
-	//overriden method
-	public void actionPerformed1(ActionEvent e) {
-		player.attack = player.getAttack() - boss.attack;
-		frame.repaint();
-		frame.revalidate();
-	}
+
 	
 	public void regularAttack() throws FileNotFoundException {
 		
@@ -301,12 +297,9 @@ public class Gameplay implements ActionListener{
 				contentPanel.remove(buttonsPanel);
 				contentPanel.add(winScreen);
 				try(PrintWriter output = new PrintWriter("test.txt")){
-					output.println(player.name + " " + count);
+					output.println("The last game was won by " + player.getName() + "!");
 				}
-					
-				
 			
-				
 			}
 		}
 		else {
@@ -318,7 +311,7 @@ public class Gameplay implements ActionListener{
 		
 	}
 	
-	public void specialAttack() {
+	public void specialAttack() throws FileNotFoundException {
 		if(player.getHealth() > 0) {
 			if(player.name.equals("Jarya")) {
 				player.special = player.bulletRain();
@@ -345,6 +338,9 @@ public class Gameplay implements ActionListener{
 				
 				contentPanel.remove(buttonsPanel);
 				contentPanel.add(winScreen);
+				try(PrintWriter output = new PrintWriter("test.txt")){
+					output.println("The last game was won by " + player.getName() + "!");
+				}
 			}
 		}
 		else {

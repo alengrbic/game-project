@@ -11,8 +11,8 @@ public class Boss1 {
 	public Boss1() {
 		this.name = "Testomaniac";
 		this.health = 700;
-		this.attack = 50;	
-		this.attackDescription = this.name + " smashes the target for " + this.attack + " damage!";
+		this.attack = 40;	
+		this.attackDescription = this.name + " smashes the target for " + this.chosenAttack() + " damage!";
 		this.specialDescription = this.name + " throws a magical hammer at the target, inflicting " + bossAttackSpecial() + " damage!";
 	}
 	
@@ -24,12 +24,17 @@ public class Boss1 {
 	
 	public int bossAttackSpecial() {
 		//second
-		int damage = 90;
+		int damage = 110;
+		return damage;
+	}
+	
+	public int bossAttackThird() {
+		int damage = 50;
 		return damage;
 	}
 	
 	public int randomChoice() {
-		int choice = random.nextInt(2);
+		int choice = random.nextInt(3);
 		return choice;
 	}
 	
@@ -42,6 +47,9 @@ public class Boss1 {
 			break;
 		case 1:
 			damage = this.bossAttackSpecial();
+			break;
+		case 2:
+			damage = this.bossAttackThird();
 			break;
 		}
 		return damage;

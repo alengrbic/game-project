@@ -1,10 +1,13 @@
 
+
 import java.util.Random;
 
 public class Playable_Char extends Character_Template  {
 
 	Random random = new Random();
 	Thread descriptionThread = new Thread(new ThreadingDescription());
+	
+
 	
 	public void pickPlayableLen() {
 		Len_Char len = new Len_Char();

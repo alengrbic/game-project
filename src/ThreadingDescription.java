@@ -1,6 +1,9 @@
+
 import java.util.Scanner;
 
-public class ThreadingDescription extends Gameplay implements Runnable {
+
+public class ThreadingDescription extends Gameplay implements Runnable  {
+	
 
 	Scanner scanner = new Scanner(System.in);
 	String userInput;
@@ -8,6 +11,7 @@ public class ThreadingDescription extends Gameplay implements Runnable {
 	
 	public void run() {
 		try {
+			
 			promptForStats();		
 			}
 		catch(Exception e)
@@ -31,4 +35,7 @@ public class ThreadingDescription extends Gameplay implements Runnable {
 			System.out.println("Good luck!");
 		}
 	}
+	
+
+	
 }
