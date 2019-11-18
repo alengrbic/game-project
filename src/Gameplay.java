@@ -121,10 +121,8 @@ public class Gameplay implements ActionListener{
 					
 				}
 			};
-		
-		
 
-	//main function
+	//UI function
 	public void gameStart() {
 		
 		startGame.setLayout(new BorderLayout());
@@ -147,9 +145,7 @@ public class Gameplay implements ActionListener{
 		characterSelection.add(ditsu);
 		characterSelection.setBounds(0, 0, 800, 800);
 		characterSelection.setVisible(false);
-		contentPanel.setVisible(false);
-		
-		
+		contentPanel.setVisible(false);			
 		
 		charAtk.addActionListener(attack);
 		specialAtk.addActionListener(specialAttack);
@@ -200,10 +196,7 @@ public class Gameplay implements ActionListener{
 		loseScreen.setLayout(new BorderLayout());
 		loseScreen.setBackground(Color.WHITE);
 		loseScreen.add(loseScreenText, BorderLayout.CENTER);
-		
-		
-		
-		
+				
 		
 		//buttons
 		charAtk.setText("Attack");
@@ -223,8 +216,7 @@ public class Gameplay implements ActionListener{
 		characterPanel.add(characterText, BorderLayout.SOUTH);
 		characterPanel.add(characterAtkText, BorderLayout.CENTER);
 		characterPanel.add(characterHealth, BorderLayout.NORTH);
-		
-		
+				
 		
 		buttonsPanel.setLayout(new BorderLayout());
 		buttonsPanel.setPreferredSize(new Dimension(500,500));
@@ -234,8 +226,7 @@ public class Gameplay implements ActionListener{
 		
 		buttonsPanel.add(atkDescription, BorderLayout.SOUTH);
 		buttonsPanel.add(bossAtkDescription, BorderLayout.NORTH);
-		
-		
+				
 		
 		//settings for content panel
 		contentPanel.setLayout(new BorderLayout());
@@ -246,14 +237,6 @@ public class Gameplay implements ActionListener{
         contentPanel.add(characterPanel, BorderLayout.SOUTH);
         contentPanel.add(buttonsPanel, BorderLayout.CENTER);
         
-
-
-		
-		//set labels and buttons
-
-		
-		//add to frame
-
 		
 		//sets for frame
         frame.setSize(800+15, 800 + 40);
