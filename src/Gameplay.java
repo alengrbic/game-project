@@ -55,7 +55,6 @@ public class Gameplay implements ActionListener{
 	JLabel bossHealth = new JLabel();
 	
 	
-	
 	//listeners
 	ActionListener attack = new ActionListener() {
 		

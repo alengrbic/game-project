@@ -4,6 +4,7 @@ import java.util.Random;
 public class Playable_Char extends Character_Template  {
 
 	Random random = new Random();
+	Thread descriptionThread = new Thread(new ThreadingDescription());
 	
 	public void pickPlayableLen() {
 		Len_Char len = new Len_Char();
@@ -14,7 +15,7 @@ public class Playable_Char extends Character_Template  {
 			this.physicalAtk = len.getAttackDesc();
 			this.special = len.getSpecial();
 			this.description = "A warrior from far away land, utilizing his exceptional speed to fight foes.";
-			Gameplay.count += 1;
+			descriptionThread.start();
 	}
 	
 	public void pickPlayableJarya() {
@@ -26,7 +27,7 @@ public class Playable_Char extends Character_Template  {
 			this.health = jarya.getHealth();
 			this.physicalAtk = jarya.getAttackDesc();
 			this.description = "A fearless gunslinger, specializing in handguns and revolvers.";
-			Gameplay.count += 1;
+			descriptionThread.start();
 
 	}
 	
@@ -39,7 +40,7 @@ public class Playable_Char extends Character_Template  {
 			this.health = ditsu.getHealth();
 			this.physicalAtk = ditsu.getAttackDesc();
 			this.description = "A shaman who learned to control elements, looking for revenge against those who wronged him.";
-			Gameplay.count += 1;
+			descriptionThread.start();
 
 	}
 
