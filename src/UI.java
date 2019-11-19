@@ -7,15 +7,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 
 
-public class Gameplay {
+public class UI {
 	//set for testing output text file
 	
 	static int count;
+	
+	//test for image
 	
 	//Chars
 	static Playable_Char player = new Playable_Char();
@@ -61,24 +62,18 @@ public class Gameplay {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			try {
+			
 				regularAttack();
-			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			
 		}
 	};
 	
 	ActionListener specialAttack = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {	
-			try {
+			
 				specialAttack();
-			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}	
+			
 		}
 	};
 	
@@ -230,6 +225,7 @@ public class Gameplay {
 		buttonsPanel.add(charAtk, BorderLayout.WEST);
 		buttonsPanel.add(specialAtk, BorderLayout.EAST);
 		
+		
 		buttonsPanel.add(atkDescription, BorderLayout.SOUTH);
 		buttonsPanel.add(bossAtkDescription, BorderLayout.NORTH);
 				
@@ -255,9 +251,6 @@ public class Gameplay {
 		frame.setVisible(true);
 		
 	}
-	
-
-	
 
 	
 	public void bossAttack() {
@@ -277,7 +270,7 @@ public class Gameplay {
 	}
 
 	
-	public void regularAttack() throws FileNotFoundException {
+	public void regularAttack() {
 		
 		if(player.getHealth() > 0) {
 			boss.health = boss.health - player.getAttack();
@@ -296,9 +289,6 @@ public class Gameplay {
 			else {
 				contentPanel.remove(buttonsPanel);
 				contentPanel.add(winScreen);
-				try(PrintWriter output = new PrintWriter("test.txt")){
-					output.println("The last game was won by " + player.getName() + "!");
-				}
 			
 			}
 		}
@@ -311,7 +301,7 @@ public class Gameplay {
 		
 	}
 	
-	public void specialAttack() throws FileNotFoundException {
+	public void specialAttack() {
 		if(player.getHealth() > 0) {
 			if(player.name.equals("Jarya")) {
 				player.special = player.bulletRain();
@@ -338,9 +328,6 @@ public class Gameplay {
 				
 				contentPanel.remove(buttonsPanel);
 				contentPanel.add(winScreen);
-				try(PrintWriter output = new PrintWriter("test.txt")){
-					output.println("The last game was won by " + player.getName() + "!");
-				}
 			}
 		}
 		else {

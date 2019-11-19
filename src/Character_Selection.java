@@ -2,7 +2,7 @@
 
 import javax.swing.*;
 
-public class Character_Selection extends Gameplay{
+public class Character_Selection extends UI{
 
 		public static void pickChar() {
 			characterSelection.setVisible(false);

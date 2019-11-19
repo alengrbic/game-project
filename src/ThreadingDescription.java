@@ -2,7 +2,7 @@
 import java.util.Scanner;
 
 
-public class ThreadingDescription extends Gameplay implements Runnable  {
+public class ThreadingDescription extends UI implements Runnable  {
 	
 
 	Scanner scanner = new Scanner(System.in);

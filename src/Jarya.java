@@ -7,7 +7,7 @@ public class Jarya extends Character_Template {
 	
 	public Jarya() {
 		this.health = 500;
-		this.attack = 1110;
+		this.attack = 40;
 		this.name = "Jarya";
 		this.special = bulletRain();
 		this.physicalAtk = this.name + " throws a knife at the target, inflicting " + getAttack() + " damage!";

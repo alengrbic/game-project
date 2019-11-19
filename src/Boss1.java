@@ -39,6 +39,7 @@ public class Boss1 {
 	}
 	
 	public int chosenAttack() {
+		//method for randomizing boss attack
 		int choice = this.randomChoice();
 		int damage = 0;
 		switch(choice) {
