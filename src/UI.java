@@ -17,18 +17,17 @@ public class UI {
 	//test for image
 	
 	//Chars
-	static Playable_Char player = new Playable_Char();
-	Boss1 boss = new Boss1();
+	
 	
 	//UI
 	JFrame frame = new JFrame();
 	static JPanel contentPanel = new JPanel();
 	JPanel startGame = new JPanel();
-	JPanel characterPanel = new JPanel();
-	JPanel bossPanel = new JPanel();
-	JPanel buttonsPanel = new JPanel();
-	JPanel winScreen = new JPanel();
-	JPanel loseScreen = new JPanel();
+	static JPanel characterPanel = new JPanel();
+	static JPanel bossPanel = new JPanel();
+	static JPanel buttonsPanel = new JPanel();
+	static JPanel winScreen = new JPanel();
+	static JPanel loseScreen = new JPanel();
 	
 	//border
 	Border border = BorderFactory.createLineBorder(Color.BLACK, 5);
@@ -38,39 +37,39 @@ public class UI {
 	static JLabel characterAtkText = new JLabel();
 	static JLabel characterHealth = new JLabel();
 	//attack descriptions
-	JLabel atkDescription = new JLabel(" ");
-	JLabel bossAtkDescription = new JLabel(" ");
+	static JLabel atkDescription = new JLabel(" ");
+	static JLabel bossAtkDescription = new JLabel(" ");
 	
-	JLabel winScreenText = new JLabel();
-	JLabel loseScreenText = new JLabel();
+	static JLabel winScreenText = new JLabel();
+	static JLabel loseScreenText = new JLabel();
 	
 	// buttons
-	JButton charAtk = new JButton();
-	JButton specialAtk = new JButton();
-	JButton startGameButton = new JButton("Start Game");
+	static JButton charAtk = new JButton();
+	static JButton specialAtk = new JButton();
+	static JButton startGameButton = new JButton("Start Game");
 	
 	
-	JLabel bossText = new JLabel();
-	JLabel bossAtk = new JLabel();
-	JLabel bossHealth = new JLabel();
+	static JLabel bossText = new JLabel();
+	static JLabel bossAtk = new JLabel();
+	static JLabel bossHealth = new JLabel();
 	
 	
-	//listeners
+	//listener for regular attack
 	ActionListener attack = new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
-				regularAttack();
+			Gameplay_Methods.regularAttack();
 			
 		}
 	};
-	
+	//listener for special attack
 	ActionListener specialAttack = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {	
 			
-				specialAttack();
+			Gameplay_Methods.specialAttack();
 			
 		}
 	};
@@ -78,14 +77,17 @@ public class UI {
 	static JPanel characterSelection = new JPanel();
 	
 	//Characters
-	JButton len = new JButton("Len");
-	JButton jarya = new JButton("Jarya");
-	JButton ditsu = new JButton("Ditsu");
+	static JButton len = new JButton("Len");
+	static JButton jarya = new JButton("Jarya");
+	static JButton ditsu = new JButton("Ditsu");
+	
+	
+	//listeners for character picks 
 	ActionListener lenPick = new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			player.pickPlayableLen();
+			Gameplay_Methods.player.pickPlayableLen();
 			Character_Selection.pickChar();
 			
 		}
@@ -95,7 +97,7 @@ public class UI {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				player.pickPlayableJarya();
+				Gameplay_Methods.player.pickPlayableJarya();
 				Character_Selection.pickChar();
 				
 			}
@@ -105,11 +107,12 @@ public class UI {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					player.pickPlayableDitsu();
+					Gameplay_Methods.player.pickPlayableDitsu();
 					Character_Selection.pickChar();
 					
 				}
-			};
+			};			
+	//end of listeners for character pick
 		
 	ActionListener start = new ActionListener() {
 				
@@ -155,26 +158,26 @@ public class UI {
 		bossAtkDescription.setFont(atkDescription.getFont().deriveFont(20.0f));
 			
 		//boss text
-		bossText.setText(boss.name);
+		bossText.setText(Gameplay_Methods.boss.name);
 		bossText.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		//setting FONT SIZE
 		bossText.setFont(bossText.getFont().deriveFont(55.0f));
-		bossAtk.setText("Attack: " + boss.attack);
+		bossAtk.setText("Attack: " + Gameplay_Methods.boss.attack);
 		bossAtk.setHorizontalAlignment(SwingConstants.CENTER);
 		bossAtk.setFont(bossAtk.getFont().deriveFont(30.0f));
-		bossHealth.setText("Health: " + boss.health);
+		bossHealth.setText("Health: " + Gameplay_Methods.boss.health);
 		bossHealth.setHorizontalAlignment(SwingConstants.CENTER);
 		bossHealth.setFont(bossHealth.getFont().deriveFont(40.0f));
 		
 		//character text
-		characterText.setText(player.getName());
+		characterText.setText(Gameplay_Methods.player.getName());
 		characterText.setHorizontalAlignment(SwingConstants.CENTER);
 		characterText.setFont(characterText.getFont().deriveFont(55.0f));
-		characterAtkText.setText("Attack: " + " " +player.getAttack());
+		characterAtkText.setText("Attack: " + " " +Gameplay_Methods.player.getAttack());
 		characterAtkText.setHorizontalAlignment(SwingConstants.CENTER);
 		characterAtkText.setFont(characterAtkText.getFont().deriveFont(30.0f));
-		characterHealth.setText("Health: " + player.health);
+		characterHealth.setText("Health: " + Gameplay_Methods.player.health);
 		characterHealth.setHorizontalAlignment(SwingConstants.CENTER);
 		characterHealth.setFont(characterHealth.getFont().deriveFont(40.0f));
 		
@@ -248,93 +251,7 @@ public class UI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		
-	}
-
-	
-	public void bossAttack() {
-		int damage = boss.chosenAttack();
-		if(damage == 40 || damage == 50) {
-			bossAtkDescription.setText(boss.attackDescription);
-			bossAtkDescription.setFont(atkDescription.getFont().deriveFont(20.0f));
-			bossAtkDescription.setHorizontalAlignment((int) (Component.CENTER_ALIGNMENT));
-		}
-		else {
-			bossAtkDescription.setText(boss.specialDescription);
-			bossAtkDescription.setFont(atkDescription.getFont().deriveFont(20.0f));
-			bossAtkDescription.setHorizontalAlignment((int) (Component.CENTER_ALIGNMENT));
-		}
-		player.health = player.getHealth() - damage;
-		characterHealth.setText("Health: " + player.health);
-	}
-
-	
-	public void regularAttack() {
-		
-		if(player.getHealth() > 0) {
-			boss.health = boss.health - player.getAttack();
-			bossHealth.setText("Health: " + boss.health);
-			atkDescription.setText(player.getAttackDesc());
-			atkDescription.setHorizontalAlignment(SwingConstants.CENTER);
-			atkDescription.setFont(atkDescription.getFont().deriveFont(20.0f));
-			
-			if(boss.health > 0) {
-				bossAttack();
-				if (player.getHealth() <=0) {
-					contentPanel.remove(buttonsPanel);
-					contentPanel.add(loseScreen);
-				}
-			}
-			else {
-				contentPanel.remove(buttonsPanel);
-				contentPanel.add(winScreen);
-			
-			}
-		}
-		else {
-		
-			contentPanel.remove(buttonsPanel);
-			contentPanel.add(winScreen);
-			
-		}
-		
-	}
-	
-	public void specialAttack() {
-		if(player.getHealth() > 0) {
-			if(player.name.equals("Jarya")) {
-				player.special = player.bulletRain();
-				player.setSP();
-
-			}
-			else if(player.name.equals("Ditsu")) {
-				player.restore();	
-			}
-			boss.health = boss.health - player.getSpecial();
-			bossHealth.setText("Health: " + boss.health);
-			atkDescription.setText(player.getSpecialAtk());
-			atkDescription.setHorizontalAlignment(SwingConstants.CENTER);
-			atkDescription.setFont(atkDescription.getFont().deriveFont(20.0f));
-			
-			if(boss.health > 0) {
-				bossAttack();
-				if (player.getHealth() <=0) {
-					contentPanel.remove(buttonsPanel);
-					contentPanel.add(loseScreen);
-				}
-			}
-			else {
-				
-				contentPanel.remove(buttonsPanel);
-				contentPanel.add(winScreen);
-			}
-		}
-		else {
-
-			contentPanel.remove(buttonsPanel);
-			contentPanel.add(loseScreen);
-		}
-	}
-	
+	}	
 }
 	
 	
