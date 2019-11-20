@@ -16,6 +16,7 @@ public abstract class Character_Template{
 	String specialAtk = "";
 	
 	
+
 	public int getAttack() {
 		return this.attack;	
 	}

@@ -16,6 +16,18 @@ public class Boss1 {
 		this.specialDescription = this.name + " throws a magical hammer at the target, inflicting " + bossAttackSpecial() + " damage!";
 	}
 	
+	public int getBossHealth() {
+		
+		return this.health;
+		
+	}
+	
+	public void setBossHealth(int health) {
+		
+		this.health = health;
+		
+	}
+	
 	public int bossAttack() {
 		//first
 		int damage = this.attack;

@@ -42,12 +42,12 @@ public class Gameplay_Methods {
 	//method for "Special" action
 	public static void specialAttack() {
 		if(player.getHealth() > 0) {
-			if(player.name.equals("Jarya")) {
+			if(player.description.equals("DPS")) {
 				player.special = player.bulletRain();
 				player.setSP();
 
 			}
-			else if(player.name.equals("Ditsu")) {
+			else if(player.description.equals("Healer")) {
 				player.restore();	
 			}
 			boss.health = boss.health - player.getSpecial();

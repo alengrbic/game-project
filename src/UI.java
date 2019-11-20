@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -13,11 +15,13 @@ public class UI {
 	//set for testing output text file
 	
 	static int count;
+	String name;
+	
 	
 	//test for image
 	
 	//Chars
-	
+	ThreadingDescription loaded = new ThreadingDescription();
 	
 	//UI
 	JFrame frame = new JFrame();
@@ -53,6 +57,10 @@ public class UI {
 	static JLabel bossAtk = new JLabel();
 	static JLabel bossHealth = new JLabel();
 	
+
+	static JButton loadGame = new JButton("Load Game");
+
+	
 	
 	//listener for regular attack
 	ActionListener attack = new ActionListener() {
@@ -77,9 +85,11 @@ public class UI {
 	static JPanel characterSelection = new JPanel();
 	
 	//Characters
-	static JButton len = new JButton("Len");
-	static JButton jarya = new JButton("Jarya");
-	static JButton ditsu = new JButton("Ditsu");
+	static JButton len = new JButton("Tank");
+	static JButton jarya = new JButton("DPS");
+	static JButton ditsu = new JButton("Heals");
+	
+
 	
 	
 	//listeners for character picks 
@@ -87,7 +97,8 @@ public class UI {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Gameplay_Methods.player.pickPlayableLen();
+			name = JOptionPane.showInputDialog("Please enter the name of your character: ");
+			Gameplay_Methods.player.pickPlayableLen(name);
 			Character_Selection.pickChar();
 			
 		}
@@ -97,7 +108,8 @@ public class UI {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Gameplay_Methods.player.pickPlayableJarya();
+				name = JOptionPane.showInputDialog("Please enter the name of your character: ");
+				Gameplay_Methods.player.pickPlayableJarya(name);
 				Character_Selection.pickChar();
 				
 			}
@@ -107,7 +119,8 @@ public class UI {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					Gameplay_Methods.player.pickPlayableDitsu();
+					name = JOptionPane.showInputDialog("Please enter the name of your character: ");
+					Gameplay_Methods.player.pickPlayableDitsu(name);
 					Character_Selection.pickChar();
 					
 				}
@@ -124,20 +137,47 @@ public class UI {
 				}
 			};
 
+		
+	ActionListener load = new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					runLoad();
+					
+				}
+			};
+			
+	public void runLoad() {
+		
+		List<String> loadedList = loaded.listFiles();
+		
+		Object[] list = loadedList.toArray();
+				
+		Object value = JOptionPane.showInputDialog(null, "Which game would you like to continue?",
+		        "Load Game", JOptionPane.QUESTION_MESSAGE, null, list, null);
+		
+		ThreadingDescription saveFile = new ThreadingDescription();
+		saveFile.readSave(value.toString());
+			
+	}
+
 	//UI function
 	public void gameStart() {
 		
-		startGame.setLayout(new BorderLayout());
-		startGame.add(startGameButton, BorderLayout.CENTER);
-		startGame.setBounds(0, 0, 800, 800);
+		startGame.setLayout(new BoxLayout(startGame, 1));
+		startGame.add(startGameButton);
+		startGame.add(loadGame);
+		startGame.setBounds(0, 0, 600, 600);
 		startGameButton.addActionListener(start);
 		startGameButton.setFont(startGameButton.getFont().deriveFont(50.0f));
+		loadGame.addActionListener(load);
+		loadGame.setFont(loadGame.getFont().deriveFont(50.0f));
 		
 		len.addActionListener(lenPick);
 		len.setFont(len.getFont().deriveFont(30.0f));
 		jarya.addActionListener(jaryaPick);
-		jarya.setFont(jarya.getFont().deriveFont(30.0f));
-		
+		jarya.setFont(jarya.getFont().deriveFont(30.0f));		
 		ditsu.setFont(ditsu.getFont().deriveFont(30.0f));
 		ditsu.addActionListener(ditsuPick);
 		
@@ -145,7 +185,7 @@ public class UI {
 		characterSelection.add(len);
 		characterSelection.add(jarya);
 		characterSelection.add(ditsu);
-		characterSelection.setBounds(0, 0, 800, 800);
+		characterSelection.setBounds(0, 0, 600, 600);
 		characterSelection.setVisible(false);
 		contentPanel.setVisible(false);			
 		
@@ -234,7 +274,7 @@ public class UI {
 		//settings for content panel
 		contentPanel.setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.BLACK);
-		contentPanel.setBounds(0, 0, 800, 800);
+		contentPanel.setBounds(0, 0, 600, 600);
 		
         contentPanel.add(bossPanel, BorderLayout.NORTH);
         contentPanel.add(characterPanel, BorderLayout.SOUTH);
@@ -242,7 +282,7 @@ public class UI {
         
 		
 		//sets for frame
-        frame.setSize(800+15, 800 + 40);
+        frame.setSize(600+15, 600 + 40);
         frame.setResizable(false);
         frame.add(startGame);
         frame.add(characterSelection);
@@ -250,6 +290,10 @@ public class UI {
 		frame.setLayout(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		
+	
+
+		
 		
 	}	
 }
