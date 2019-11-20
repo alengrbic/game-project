@@ -11,7 +11,6 @@ It is a turn based role playing game in which the user picks one out of three ch
 
 ----
 ### Bugs and To-Do List
--Fix save/load file
 
 -Implement mana system (characters use mana for special attack)
 
