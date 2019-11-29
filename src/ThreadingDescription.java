@@ -2,6 +2,8 @@ import java.io.*;
 import java.text.*;
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
 public class ThreadingDescription extends Gameplay_Methods implements Runnable  {
 	
 
@@ -9,8 +11,12 @@ public class ThreadingDescription extends Gameplay_Methods implements Runnable  
 	String userInput;
 	static boolean chosenCharacter = false;
 	
-	public static String path = System.getProperty("user.dir");
 	
+	//a string storing the path of the project 
+	private static String path = System.getProperty("user.dir");
+	
+	
+	//a function that searches the project directory for .txt files and saves the results in an array list
 	public List<String> listFiles() {	
 		
 		  List<String> textFiles = new ArrayList<String>();
@@ -25,7 +31,9 @@ public class ThreadingDescription extends Gameplay_Methods implements Runnable  
 
 	}
 	
-	public void readSave(String saveName) {
+	
+	//a function that opens the selected .txt file, reads the info and prints it to the console
+	private void readSave(String saveName) {
 		
 		Scanner fileIn;
 		ArrayList<String> data = new ArrayList<String>();		
@@ -42,31 +50,66 @@ public class ThreadingDescription extends Gameplay_Methods implements Runnable  
 		
 		String[] dataTheReturn = data.toArray(new String[data.size()]);
 		
-	//	System.out.println(dataTheReturn[0]);
-	//	System.out.println(dataTheReturn[1]);
-	//	System.out.println(dataTheReturn[2]);
-	//	System.out.println(dataTheReturn[3]);
-
-		if (dataTheReturn[3] == "Tank") {
-			Gameplay_Methods.player.pickPlayableLen(dataTheReturn[0], Integer.parseInt(dataTheReturn[1]));
-			Gameplay_Methods.boss.health = Integer.parseInt(dataTheReturn[2]);
+		System.out.println("Character name: " + dataTheReturn[0]);
+		System.out.println("Character health: " + dataTheReturn[1]);
+		System.out.println("Boss Health: " + dataTheReturn[2]);
+		System.out.println("Character description: " + dataTheReturn[3]);
 		
+	}
+	
+	
+	//a function that opens the dialogue prompt offering the selection of loaded .txt files
+	private void runLoad() {
+		
+		List<String> loadedList = listFiles();
+		
+		Object[] list = loadedList.toArray();
+				
+		Object value = JOptionPane.showInputDialog(null, "Which game would you like to continue?",
+		        "Load Game", JOptionPane.QUESTION_MESSAGE, null, list, null);
+		
+		readSave(value.toString());
+			
+	}
+	
+	//randomises a number, turns it to a string, uses the current system date in ddMMyyyy format and creates a sting RNDNUMplayernameDATE
+	//opens a new file, reads the information from the player object and prints it to the file. closes the file
+	//sends a message under which filename the game has been successfully saved
+	private void saveGame() {
+		
+		
+		PrintWriter fileOut;
+		Random ran = new Random();
+		int randomNum = ran.nextInt(1000);
+		String serial = Integer.toString(randomNum);
+		DateFormat df = new SimpleDateFormat("ddMMyyyy");
+		String date = df.format(new Date());
+		String saveFileName = serial + player.getName() + date + ".txt";
+		
+		
+		
+		try {
+			
+			
+			fileOut = new PrintWriter(saveFileName);
+			fileOut.println(player.getName());
+			fileOut.println(Integer.toString(player.getHealth()));
+			fileOut.println(Integer.toString(boss.getBossHealth()));
+			fileOut.print(player.getDescription());
+			fileOut.close();
+			
+		} 
+		catch (FileNotFoundException e) {
+			
+			System.out.println("Error: " + e.getMessage());
+			
 		}
 		
-		if (dataTheReturn[3] == "DPS") {
-			Gameplay_Methods.player.pickPlayableJarya(dataTheReturn[0], Integer.parseInt(dataTheReturn[1]));
-			Gameplay_Methods.boss.health = Integer.parseInt(dataTheReturn[2]);
 		
-			}
+		System.out.println("Your game has been saved with the save file name: " + saveFileName);
+		System.exit(0);	
 		
-		if (dataTheReturn[3] == "Healer") {
-			Gameplay_Methods.player.pickPlayableDitsu(dataTheReturn[0], Integer.parseInt(dataTheReturn[1]));
-			Gameplay_Methods.boss.health = Integer.parseInt(dataTheReturn[2]);
-		
-			}		
-
-		
-		}	
+	}
 		
 	
 	public void run() {
@@ -79,8 +122,8 @@ public class ThreadingDescription extends Gameplay_Methods implements Runnable  
 		}
 	}
 	
-	public void promptForStats() {
-		System.out.println("Enter 'STATS' for character description and stats, and SAVE to save the game and quit");
+	private void promptForStats() {
+		System.out.println("Enter 'STATS' for character description and stats, SAVE to save the game and quit, LOAD to see the saved game stats.");
 		userInput = scanner.nextLine();
 		if (userInput.equals("STATS")) {
 			String name = player.getName();
@@ -95,37 +138,15 @@ public class ThreadingDescription extends Gameplay_Methods implements Runnable  
 	}
 		else if (userInput.equals("SAVE")) {
 			
-			PrintWriter fileOut;
-			Random ran = new Random();
-			int randomNum = ran.nextInt(1000);
-			String serial = Integer.toString(randomNum);
-			DateFormat df = new SimpleDateFormat("ddMMyyyy");
-			String date = df.format(new Date());
-			String saveFileName = serial + player.getName() + date + ".txt";
+			saveGame();
 			
-			
-			
-			try {
-				
-				fileOut = new PrintWriter(saveFileName);
-				fileOut.println(player.getName());
-				fileOut.println(Integer.toString(player.getHealth()));
-				fileOut.println(Integer.toString(boss.getBossHealth()));
-				fileOut.print(player.getDescription());
-				fileOut.close();
-				
-			} 
-			catch (FileNotFoundException e) {
-				
-				System.out.println("Error: " + e.getMessage());
-				
-			}
-			
-			System.out.println("Your game has been saved with the save file name: " + saveFileName);
-			System.exit(0);;			
 		}
 		
-		
+		else if (userInput.equals("LOAD")) {
+			
+			runLoad();
+			
+		}
 		else {			
 
 		    promptForStats();

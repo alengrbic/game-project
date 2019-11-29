@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -15,14 +14,13 @@ public class UI {
 	//set for testing output text file
 	
 	static int count;
-	String name;
+	private String name;
 	
 	
 	//test for image
 	
 	//Chars
-	ThreadingDescription loaded = new ThreadingDescription();
-	
+		
 	//UI
 	JFrame frame = new JFrame();
 	static JPanel contentPanel = new JPanel();
@@ -57,9 +55,6 @@ public class UI {
 	static JLabel bossAtk = new JLabel();
 	static JLabel bossHealth = new JLabel();
 	
-
-	static JButton loadGame = new JButton("Load Game");
-
 	
 	
 	//listener for regular attack
@@ -137,42 +132,18 @@ public class UI {
 				}
 			};
 
-		
-	ActionListener load = new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					
-					runLoad();
-					
-				}
-			};
-			
-	public void runLoad() {
-		
-		List<String> loadedList = loaded.listFiles();
-		
-		Object[] list = loadedList.toArray();
-				
-		Object value = JOptionPane.showInputDialog(null, "Which game would you like to continue?",
-		        "Load Game", JOptionPane.QUESTION_MESSAGE, null, list, null);
-		
-		ThreadingDescription saveFile = new ThreadingDescription();
-		saveFile.readSave(value.toString());
-			
-	}
+
+
 
 	//UI function
 	public void gameStart() {
 		
-		startGame.setLayout(new BoxLayout(startGame, 1));
+		startGame.setLayout(new BorderLayout());
 		startGame.add(startGameButton);
-		startGame.add(loadGame);
 		startGame.setBounds(0, 0, 600, 600);
 		startGameButton.addActionListener(start);
 		startGameButton.setFont(startGameButton.getFont().deriveFont(50.0f));
-		loadGame.addActionListener(load);
-		loadGame.setFont(loadGame.getFont().deriveFont(50.0f));
+
 		
 		len.addActionListener(lenPick);
 		len.setFont(len.getFont().deriveFont(30.0f));
@@ -291,9 +262,9 @@ public class UI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		
-	
-
-		
+		//starts a thread running the console
+		Thread descriptionThread = new Thread(new ThreadingDescription());
+		descriptionThread.start();
 		
 	}	
 }
